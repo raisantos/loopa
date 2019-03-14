@@ -1,4 +1,4 @@
-package com.loopa.controller.cliente;
+package com.loopa.api.exception;
 
 public class ClienteNotFoundException extends RuntimeException {
 

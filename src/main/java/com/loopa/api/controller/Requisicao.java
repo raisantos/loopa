@@ -1,4 +1,4 @@
-package com.loopa.controller.requisicao;
+package com.loopa.api.controller;
 
 import java.util.List;
 
@@ -12,46 +12,46 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.loopa.controller.cliente.Cliente;
-import com.loopa.controller.cliente.IClienteResource;
-import com.loopa.controller.profissional.IProfissionalResource;
-import com.loopa.controller.profissional.Profissional;
+import com.loopa.api.iservice.IClienteService;
+import com.loopa.api.iservice.IProfissionalService;
+import com.loopa.api.model.Cliente;
+import com.loopa.api.model.Profissional;
 
 @RestController
 public class Requisicao {
 
 	@Autowired
-	IProfissionalResource profissionalResource;
+	IProfissionalService profissionalService;
 	
 	@Autowired
-	IClienteResource clienteResource;
+	IClienteService clienteResource;
 	
 	Requisicao(){
 	}
 	
 	@GetMapping("/profissionais")
 	public List<Profissional> retrieveAllProfissionais() {
-		return profissionalResource.retrieveAllProfissionais();
+		return profissionalService.retrieveAllProfissionais();
 	}
 
 	@GetMapping("/profissionais/{id}")
 	public Profissional retrieveProfissional(@PathVariable long id) {
-		return profissionalResource.retrieveProfissional(id);
+		return profissionalService.retrieveProfissional(id);
 	}
 
 	@DeleteMapping("/profissionais/{id}")
 	public void deleteProfissional(@PathVariable long id) {
-		profissionalResource.deleteProfissional(id);;
+		profissionalService.deleteProfissional(id);;
 	}
 
 	@PostMapping("/profissionais")
 	public ResponseEntity<Object> createProfissional(@RequestBody Profissional profissional) {
-		return profissionalResource.createProfissional(profissional);
+		return profissionalService.createProfissional(profissional);
 	}
 	
 	@PutMapping("/profissionais/{id}")
 	public ResponseEntity<Object> updateProfissional(@RequestBody Profissional profissional, @PathVariable long id) {
-		return profissionalResource.updateProfissional(profissional, id);
+		return profissionalService.updateProfissional(profissional, id);
 	}
 	
 	@GetMapping("/clientes")

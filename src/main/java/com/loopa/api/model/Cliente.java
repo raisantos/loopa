@@ -1,22 +1,22 @@
-package com.loopa.controller.profissional;
+package com.loopa.api.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Profissional {
+public class Cliente {
 	@Id
 	@GeneratedValue
 	private Long id;
 	private String name;
 	private String passportNumber;
 	
-	public Profissional() {
+	public Cliente() {
 		super();
 	}
 
-	public Profissional(Long id, String name, String passportNumber) {
+	public Cliente(Long id, String name, String passportNumber) {
 		super();
 		this.id = id;
 		this.name = name;

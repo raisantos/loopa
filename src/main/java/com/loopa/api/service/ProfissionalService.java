@@ -1,4 +1,4 @@
-package com.loopa.controller.profissional;
+package com.loopa.api.service;
 
 import java.net.URI;
 import java.util.List;
@@ -16,12 +16,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.loopa.api.exception.ProfissionalNotFoundException;
+import com.loopa.api.irepository.IProfissionalRepository;
+import com.loopa.api.iservice.IProfissionalService;
+import com.loopa.api.model.Profissional;
+
 //@RestController
 @Service("profissionalResource")
-public class ProfissionalResource implements IProfissionalResource{
+public class ProfissionalService implements IProfissionalService{
 
 	@Autowired
-	private ProfissionalRepository profissionalRepository;
+	private IProfissionalRepository profissionalRepository;
 
 	//@GetMapping("/profissionais")
 	public List<Profissional> retrieveAllProfissionais() {

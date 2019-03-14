@@ -1,4 +1,4 @@
-package com.loopa.controller.recomendacao;
+package com.loopa.api.recomendation;
 
 import java.io.IOException;
 

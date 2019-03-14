@@ -1,4 +1,4 @@
-package com.loopa.controller.cliente;
+package com.loopa.api.iservice;
 
 import java.util.List;
 
@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-public interface IClienteResource {
+import com.loopa.api.model.Cliente;
+
+public interface IClienteService {
 
 	public List<Cliente> retrieveAllClientes();
 	public Cliente retrieveCliente(@PathVariable long id);

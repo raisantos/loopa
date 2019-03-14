@@ -1,4 +1,4 @@
-package com.in28minutes.springboot.rest.example;
+package com.loopa.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

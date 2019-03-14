@@ -1,4 +1,4 @@
-package com.loopa.controller.busca;
+package com.loopa.api.search;
 
 import java.io.IOException;
 import java.util.ArrayList;

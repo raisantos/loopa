@@ -1,4 +1,4 @@
-package com.loopa.controller.profissional;
+package com.loopa.api.exception;
 
 public class ProfissionalNotFoundException extends RuntimeException {
 

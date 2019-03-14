@@ -1,4 +1,4 @@
-package com.loopa.controller.cliente;
+package com.loopa.api.service;
 
 import java.net.URI;
 import java.util.List;
@@ -16,12 +16,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.loopa.api.exception.ClienteNotFoundException;
+import com.loopa.api.irepository.IClienteRepository;
+import com.loopa.api.iservice.IClienteService;
+import com.loopa.api.model.Cliente;
+
 //@RestController
 @Service("clienteResource")
-public class ClienteResource implements IClienteResource{
+public class ClienteService implements IClienteService{
 
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private IClienteRepository clienteRepository;
 
 	//@GetMapping("/clientes")
 	public List<Cliente> retrieveAllClientes() {
