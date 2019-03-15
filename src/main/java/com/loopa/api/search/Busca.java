@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Searcher {
+public class Busca {
 	
 	private RestHighLevelClient restClient;
 	private SearchRequest searchRequest;
 	private SearchSourceBuilder searchSourceBuilder;
 	private SearchResponse searchResponse;
 	
-	public Searcher() {
+	public Busca() {
 		restClient = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
 		searchSourceBuilder = new SearchSourceBuilder();
 	}

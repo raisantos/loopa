@@ -1,4 +1,4 @@
-package com.loopa.api.controller;
+package com.loopa.api.resource;
 
 import java.util.List;
 

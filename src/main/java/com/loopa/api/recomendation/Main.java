@@ -8,7 +8,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException, TasteException {
 		// TODO Auto-generated method stub
-		Recommendation rec = new Recommendation();
+		Recomendacao rec = new Recomendacao();
 		//rec.collaborativeFiltering();
 
 	}

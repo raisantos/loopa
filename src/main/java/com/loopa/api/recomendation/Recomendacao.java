@@ -32,14 +32,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Recommendation {
+public class Recomendacao {
 
 	private RestHighLevelClient restClient;
 	private SearchRequest searchRequest;
 	private SearchSourceBuilder searchSourceBuilder;
 	private SearchResponse searchResponse;
 	
-	Recommendation(){
+	Recomendacao(){
 		restClient = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
 		searchSourceBuilder = new SearchSourceBuilder();
 	}
