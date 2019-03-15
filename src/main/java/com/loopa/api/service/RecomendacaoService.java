@@ -1,4 +1,4 @@
-package com.loopa.api.recomendation;
+package com.loopa.api.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,19 +27,19 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
-@RestController
-public class Recomendacao {
+import com.loopa.api.iservice.IRecomendacaoService;
+
+@Service("recomendacaoService")
+public class RecomendacaoService implements IRecomendacaoService{
 
 	private RestHighLevelClient restClient;
 	private SearchRequest searchRequest;
 	private SearchSourceBuilder searchSourceBuilder;
 	private SearchResponse searchResponse;
 	
-	Recomendacao(){
+	RecomendacaoService(){
 		restClient = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
 		searchSourceBuilder = new SearchSourceBuilder();
 	}
@@ -48,51 +48,35 @@ public class Recomendacao {
 		return restClient;
 	}
 
-
-
 	public void setRestClient(RestHighLevelClient restClient) {
 		this.restClient = restClient;
 	}
-
-
 
 	public SearchRequest getSearchRequest() {
 		return searchRequest;
 	}
 
-
-
 	public void setSearchRequest(SearchRequest searchRequest) {
 		this.searchRequest = searchRequest;
 	}
-
-
 
 	public SearchSourceBuilder getSearchSourceBuilder() {
 		return searchSourceBuilder;
 	}
 
-
-
 	public void setSearchSourceBuilder(SearchSourceBuilder searchSourceBuilder) {
 		this.searchSourceBuilder = searchSourceBuilder;
 	}
-
-
 
 	public SearchResponse getSearchResponse() {
 		return searchResponse;
 	}
 
-
-
 	public void setSearchResponse(SearchResponse searchResponse) {
 		this.searchResponse = searchResponse;
 	}
 
-
-	@GetMapping("/recommendation/{latitude}/{longitude}")
-	public ArrayList<Map<String,Object>> collaborativeFiltering(@PathVariable double latitude, @PathVariable double longitude) throws IOException, TasteException {
+	public ArrayList<Map<String,Object>> contextualPostFiltering(double latitude, double longitude) throws IOException, TasteException {
 		DataModel model = new FileDataModel(new File("/home/raisantos/Documents/dataset.csv"));
 		UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
 		UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);

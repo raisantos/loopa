@@ -1,0 +1,28 @@
+package com.loopa.api.resource;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+
+import org.apache.mahout.cf.taste.common.TasteException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.loopa.api.iservice.IRecomendacaoService;
+
+@RestController
+public class RecomendacaoResource {
+	
+	@Autowired
+	IRecomendacaoService recomendacaoService;
+
+	public RecomendacaoResource() {
+	}
+	
+	@GetMapping("/recommendation/{latitude}/{longitude}")
+	public ArrayList<Map<String,Object>> contextualPostFiltering(@PathVariable double latitude, @PathVariable double longitude) throws IOException, TasteException {
+		return recomendacaoService.contextualPostFiltering(latitude, longitude);
+	}
+}

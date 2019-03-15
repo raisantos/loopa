@@ -24,7 +24,7 @@ public class Requisicao {
 	IProfissionalService profissionalService;
 	
 	@Autowired
-	IClienteService clienteResource;
+	IClienteService clienteService;
 	
 	Requisicao(){
 	}
@@ -56,27 +56,27 @@ public class Requisicao {
 	
 	@GetMapping("/clientes")
 	public List<Cliente> retrieveAllClientes() {
-		return clienteResource.retrieveAllClientes();
+		return clienteService.retrieveAllClientes();
 	}
 
 	@GetMapping("/clientes/{id}")
 	public Cliente retrieveCliente(@PathVariable long id) {
-		return clienteResource.retrieveCliente(id);
+		return clienteService.retrieveCliente(id);
 
 	}
 
 	@DeleteMapping("/clientes/{id}")
 	public void deleteCliente(@PathVariable long id) {
-		clienteResource.deleteCliente(id);;
+		clienteService.deleteCliente(id);;
 	}
 
 	@PostMapping("/clientes")
 	public ResponseEntity<Object> createCliente(@RequestBody Cliente cliente) {
-		return clienteResource.createCliente(cliente);
+		return clienteService.createCliente(cliente);
 	}
 		
 	@PutMapping("/clientes/{id}")
 	public ResponseEntity<Object> updateCliente(@RequestBody Cliente cliente, @PathVariable long id) {
-		return clienteResource.updateCliente(cliente, id);
+		return clienteService.updateCliente(cliente, id);
 	}
 }

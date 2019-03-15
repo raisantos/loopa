@@ -7,13 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.loopa.api.exception.ClienteNotFoundException;
@@ -21,19 +14,16 @@ import com.loopa.api.irepository.IClienteRepository;
 import com.loopa.api.iservice.IClienteService;
 import com.loopa.api.model.Cliente;
 
-//@RestController
-@Service("clienteResource")
+@Service("clienteService")
 public class ClienteService implements IClienteService{
 
 	@Autowired
 	private IClienteRepository clienteRepository;
 
-	//@GetMapping("/clientes")
 	public List<Cliente> retrieveAllClientes() {
 		return clienteRepository.findAll();
 	}
 
-	//@GetMapping("/clientes/{id}")
 	public Cliente retrieveCliente(long id) {
 		Optional<Cliente> cliente = clienteRepository.findById(id);
 
@@ -43,12 +33,10 @@ public class ClienteService implements IClienteService{
 		return cliente.get();
 	}
 
-	//@DeleteMapping("/clientes/{id}")
 	public void deleteCliente(long id) {
 		clienteRepository.deleteById(id);
 	}
 
-	//@PostMapping("/clientes")
 	public ResponseEntity<Object> createCliente(Cliente cliente) {
 		Cliente savedCliente = clienteRepository.save(cliente);
 
@@ -59,7 +47,6 @@ public class ClienteService implements IClienteService{
 
 	}
 	
-	//@PutMapping("/clientes/{id}")
 	public ResponseEntity<Object> updateCliente(Cliente cliente, long id) {
 
 		Optional<Cliente> clienteOptional = clienteRepository.findById(id);

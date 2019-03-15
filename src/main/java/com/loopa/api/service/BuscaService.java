@@ -1,36 +1,33 @@
-package com.loopa.api.search;
+package com.loopa.api.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpHost;
-import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.index.query.IdsQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
-@RestController
-public class Busca {
+import com.loopa.api.iservice.IBuscaService;
+
+@Service("buscaService")
+public class BuscaService implements IBuscaService{
 	
 	private RestHighLevelClient restClient;
 	private SearchRequest searchRequest;
 	private SearchSourceBuilder searchSourceBuilder;
 	private SearchResponse searchResponse;
 	
-	public Busca() {
+	public BuscaService() {
 		restClient = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
 		searchSourceBuilder = new SearchSourceBuilder();
 	}
@@ -82,8 +79,7 @@ public class Busca {
 		this.searchRequest.source(searchSourceBuilder);
 	}
 	
-	@GetMapping("/search/{servico}/{latitude}/{longitude}")
-	public ArrayList<Map<String,Object>> contextualSearch(@PathVariable String servico,@PathVariable double latitude, @PathVariable double longitude) throws IOException {
+	public ArrayList<Map<String,Object>> contextualSearch(String servico, double latitude, double longitude) throws IOException {
 		setSearchRequest(new SearchRequest("profissionais"));
 		//double lat =  latitude
 		this.searchSourceBuilder.query(QueryBuilders.boolQuery()
