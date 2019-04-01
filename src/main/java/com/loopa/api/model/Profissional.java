@@ -9,35 +9,65 @@ public class Profissional extends Usuario{
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String name;
-	private String passportNumber;
+	private Long idServico;
+	private Long idUsuario;
+	private Double latitude;
+	private Double longitude;
 	
 	public Profissional() {
 		super();
 	}
-
-	public Profissional(Long id, String name, String passportNumber) {
+	
+	public Profissional(Long id, String email, String senha, String nome, String telefone, String endereco) {
+		super(id, email, senha, nome, telefone, endereco);
+	}
+	
+	public Profissional(Long id, Long idServico, Long idUsuario, Double latitude, Double longitude) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.passportNumber = passportNumber;
+		this.idServico = idServico;
+		this.idUsuario = idUsuario;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	
+	public Long getIdServico() {
+		return idServico;
 	}
-	public void setName(String name) {
-		this.name = name;
+	
+	public void setIdServico(Long idServico) {
+		this.idServico = idServico;
 	}
-	public String getPassportNumber() {
-		return passportNumber;
+
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
-	public void setPassportNumber(String passportNumber) {
-		this.passportNumber = passportNumber;
-	}	
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}		
 }

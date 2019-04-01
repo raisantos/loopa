@@ -3,6 +3,7 @@ package com.loopa.api.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 public class Servico {
@@ -10,6 +11,7 @@ public class Servico {
 	@Id
 	@GeneratedValue
 	private int id;
+	
 	private String descricao;
 	
 	public int getId() {
