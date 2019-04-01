@@ -88,18 +88,6 @@ public class RecomendacaoService implements IRecomendacaoService{
 		return compoundQuerySearch(recommendations, latitude, longitude);
 	}
 	
-	/*public void collaborativeFiltering() throws IOException, TasteException {
-		DataModel model = new FileDataModel(new File("/home/raisantos/Documents/dataset.csv"));
-		UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
-		UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
-		UserBasedRecommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
-		List<RecommendedItem> recommendations = recommender.recommend(2, 3);
-		for (RecommendedItem recommendation : recommendations) {
-		  System.out.println(recommendation);
-		}
-		//compoundQuerySearch(recommendations, latitude, longitude);
-	}*/
-	
 	public ArrayList<Map<String,Object>> compoundQuerySearch(List<RecommendedItem> recommendations, double latitude, double longitude) throws IOException {
 			setSearchRequest(new SearchRequest("profissionais"));
 			
@@ -114,10 +102,10 @@ public class RecomendacaoService implements IRecomendacaoService{
 			this.searchRequest.source(searchSourceBuilder);
 			setSearchResponse(restClient.search(searchRequest, RequestOptions.DEFAULT));
 			SearchHits searchHits = getSearchResponse().getHits();
-			ArrayList<Map<String,Object>> a = new ArrayList<Map<String,Object>>();
+			ArrayList<Map<String,Object>> recommendationList = new ArrayList<Map<String,Object>>();
 			for(SearchHit s: searchHits) {
-				a.add(s.getSourceAsMap());
+				recommendationList.add(s.getSourceAsMap());
 			}
-			return a;
+			return recommendationList;
 		}
 }
