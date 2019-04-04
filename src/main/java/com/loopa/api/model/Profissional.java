@@ -1,59 +1,74 @@
 package com.loopa.api.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="profissional")
 public class Profissional extends Usuario{
-	@Id
-	@GeneratedValue
-	private Long id;
-	private Long idServico;
-	private Long idUsuario;
+	//@Id
+	//@GeneratedValue
+	//private Long id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_servico", nullable = false)
+	private Servico servico;
+	
+	//@OneToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "id_usuario", nullable = false)
+	//private Usuario usuario;
+	
 	private Double latitude;
+	
 	private Double longitude;
 	
 	public Profissional() {
 		super();
 	}
+
+	public Profissional(Long id, Servico servico, Usuario usuario, Double latitude, Double longitude) {
+		super();
+		//this.id = id;
+		this.servico = servico;
+		//this.usuario = usuario;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
 	
 	public Profissional(Long id, String email, String senha, String nome, String telefone, String endereco) {
 		super(id, email, senha, nome, telefone, endereco);
 	}
+
+	//public Long getId() {
+		//return id;
+	//}
+
+	//public void setId(Long id) {
+		//this.id = id;
+	//}
 	
-	public Profissional(Long id, Long idServico, Long idUsuario, Double latitude, Double longitude) {
-		super();
-		this.id = id;
-		this.idServico = idServico;
-		this.idUsuario = idUsuario;
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public Servico getServico() {
+		return servico;
 	}
 	
-	public Long getIdServico() {
-		return idServico;
-	}
-	
-	public void setIdServico(Long idServico) {
-		this.idServico = idServico;
+	public void setServico(Servico servico) {
+		this.servico = servico;
 	}
 
-	public Long getIdUsuario() {
-		return idUsuario;
-	}
+	//public Usuario getUsuario() {
+		//return usuario;
+	//}
 
-	public void setIdUsuario(Long idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+	//public void setUsuario(Usuario usuario) {
+		//this.usuario = usuario;
+	//}
 
 	public Double getLatitude() {
 		return latitude;

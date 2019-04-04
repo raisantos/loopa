@@ -1,30 +1,42 @@
 package com.loopa.api.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="avaliacao")
 public class Avaliacao {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private int nota;
 	private String comentario;
-	private Long idProfissional;
-	private Long idCliente;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_profissional", nullable = false)
+	private Profissional profissional;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_cliente", nullable = false)
+	private Cliente cliente;
 	
 	public Avaliacao() {
 	}
 	
-	public Avaliacao(Long id, int nota, String comentario, Long idProfissional, Long idCliente) {
+	public Avaliacao(Long id, int nota, String comentario, Profissional profissional, Cliente cliente) {
 		super();
 		this.id = id;
 		this.nota = nota;
 		this.comentario = comentario;
-		this.idProfissional = idProfissional;
-		this.idCliente = idCliente;
+		this.profissional = profissional;
+		this.cliente = cliente;
 	}
 
 	public Long getId() {
@@ -51,19 +63,19 @@ public class Avaliacao {
 		this.comentario = comentario;
 	}
 	
-	public Long getIdProfissional() {
-		return idProfissional;
+	public Profissional getProfissional() {
+		return profissional;
 	}
 	
-	public void setIdProfissional(Long idProfissional) {
-		this.idProfissional = idProfissional;
+	public void setProfissional(Profissional profissional) {
+		this.profissional = profissional;
 	}
 	
-	public Long getIdCliente() {
-		return idCliente;
+	public Cliente getCliente() {
+		return cliente;
 	}
 	
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }
