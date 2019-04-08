@@ -10,22 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.loopa.api.iservice.IAvaliacaoService;
 import com.loopa.api.iservice.IBuscaService;
+import com.loopa.api.iservice.IServicoService;
 
 @RestController
-@RequestMapping(value="/busca")
-public class BuscaResource {
-
+@RequestMapping(value="/avaliacoes")
+public class AvaliacaoResource {
+	
 	@Autowired
-	IBuscaService buscaService;
+	IAvaliacaoService avaliacaoService;
 	
-	BuscaResource(){
-	}
-	
-	@RequestMapping(value="/{servico}/{latitude}/{longitude}", method=RequestMethod.GET)
-	public ArrayList<Map<String,Object>> contextualSearch(@PathVariable String servico,@PathVariable double latitude, @PathVariable double longitude) throws IOException {
-		return buscaService.contextualSearch(servico, latitude, longitude);
-		
+	AvaliacaoResource(){
 	}
 
 }
