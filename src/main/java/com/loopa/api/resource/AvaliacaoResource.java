@@ -33,7 +33,7 @@ public class AvaliacaoResource {
 	
 	@GetMapping("/avaliacoes")
 	public List<Avaliacao> retrieveAllAvaliacaos() {
-		return avaliacaoService.retrieveAllAvaliacaos();
+		return avaliacaoService.retrieveAllAvaliacoes();
 	}
 
 	@GetMapping("/avaliacoes/{id}")

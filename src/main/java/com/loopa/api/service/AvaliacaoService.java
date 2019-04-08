@@ -26,7 +26,7 @@ public class AvaliacaoService implements IAvaliacaoService{
 	@Autowired
 	private IAvaliacaoRepository avaliacaoRepository;
 	
-	public List<Avaliacao> retrieveAllAvaliacaos() {
+	public List<Avaliacao> retrieveAllAvaliacoes() {
 		return avaliacaoRepository.findAll();
 	}
 

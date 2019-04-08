@@ -13,7 +13,7 @@ import com.loopa.api.model.Avaliacao;
 
 public interface IAvaliacaoService {
 
-	public List<Avaliacao> retrieveAllAvaliacaos();
+	public List<Avaliacao> retrieveAllAvaliacoes();
 	public Avaliacao retrieveAvaliacao(@PathVariable long id);
 	public void deleteAvaliacao(@PathVariable long id);
 	public ResponseEntity<Object> createAvaliacao(@RequestBody Avaliacao avaliacao);
