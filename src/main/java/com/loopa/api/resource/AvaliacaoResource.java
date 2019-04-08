@@ -32,7 +32,7 @@ public class AvaliacaoResource {
 	}
 	
 	@GetMapping("/avaliacoes")
-	public List<Avaliacao> retrieveAllAvaliacaos() {
+	public List<Avaliacao> retrieveAllAvaliacoes() {
 		return avaliacaoService.retrieveAllAvaliacoes();
 	}
 

@@ -12,16 +12,16 @@ public class Servico {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idServico;
+	private long idServico;
 	
 	private String descricao;
 	
 	public Servico() {}
 	
-	public int getIdServico() {
+	public long getIdServico() {
 		return idServico;
 	}
-	public void setIdServico(int id) {
+	public void setIdServico(long id) {
 		this.idServico = id;
 	}
 	public String getDescricao() {
