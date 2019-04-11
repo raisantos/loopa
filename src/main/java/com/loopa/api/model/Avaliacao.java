@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="avaliacao")
 public class Avaliacao {
@@ -19,11 +21,11 @@ public class Avaliacao {
 	private int nota;
 	private String comentario;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "id_profissional", nullable = false)
 	private Profissional profissional;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "id_cliente", nullable = false)
 	private Cliente cliente;
 	
