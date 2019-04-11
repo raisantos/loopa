@@ -33,6 +33,8 @@ public class Profissional extends Usuario implements Serializable{
 	
 	private Double longitude;
 	
+	private String status;
+
 	public Profissional() {
 		super();
 	}
@@ -88,5 +90,13 @@ public class Profissional extends Usuario implements Serializable{
 
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
-	}		
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }
