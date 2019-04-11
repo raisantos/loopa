@@ -1,5 +1,6 @@
 package com.loopa.api.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -16,8 +17,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="atendimento")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Atendimento {
+public class Atendimento implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
