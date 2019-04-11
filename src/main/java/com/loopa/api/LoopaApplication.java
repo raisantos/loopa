@@ -62,7 +62,25 @@ public class LoopaApplication implements CommandLineRunner{
 		p.setLatitude(-0.32015);
 		p.setLongitude(0.1546);
 		p.setServico(servico2);
+		p.setEndereco("");
+		p.setTelefone("");
+		p.setStatus("ativo");
 		profissionalRepository.save(p);
+		
+		for(long i = 2; i < 20; i++) {
+			Profissional p1 = new Profissional();
+			p1.setId(i);
+			p1.setEmail("rai@gmail");
+			p1.setNome("Rai");
+			p1.setSenha("123");
+			p1.setLatitude(-0.32015);
+			p1.setLongitude(0.1546);
+			p1.setServico(servico2);
+			p1.setEndereco("");
+			p1.setTelefone("");
+			p1.setStatus("ativo");
+			profissionalRepository.save(p1);
+		}
 		
 		Cliente c = new Cliente();
 		c.setEmail("jailson@gmail");
@@ -72,12 +90,40 @@ public class LoopaApplication implements CommandLineRunner{
 		c.setLongitude(0.1546);
 		clienteRepository.save(c);
 		
+		for(long i = 2; i < 10; i++) {
+			Cliente c1 = new Cliente();
+			c1.setId(i);
+			c1.setEmail("jailson@gmail");
+			c1.setNome("Jailson");
+			c1.setSenha("123");
+			c1.setLatitude(-0.32015);
+			c1.setLongitude(0.1546);
+			clienteRepository.save(c1);
+		}
+		
 		Avaliacao a = new Avaliacao();
 		a.setCliente(c);
 		a.setComentario("muito bom");
 		a.setNota(5);
-		a.setProfissional(p);
+		a.setProfissional(profissionalRepository.getOne((long) 2));
 		avaliacaoRepository.save(a);
+		
+		for (long i=2; i< 10; i++) {
+			Avaliacao a1 = new Avaliacao();
+			a1.setId(i);
+			a1.setCliente(clienteRepository.getOne(i));
+			a1.setComentario("muito bom");
+			a1.setNota(5);
+			a1.setProfissional(profissionalRepository.getOne(i));
+			avaliacaoRepository.save(a1);
+		}
+		
+		Avaliacao a2 = new Avaliacao();
+		a2.setCliente(clienteRepository.getOne((long) 1));
+		a2.setComentario("muito bom");
+		a2.setNota(5);
+		a2.setProfissional(profissionalRepository.getOne((long) 3));
+		avaliacaoRepository.save(a2);
 		
 		Atendimento at = new Atendimento();
 		at.setCliente(c);

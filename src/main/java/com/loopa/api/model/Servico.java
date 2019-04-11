@@ -1,5 +1,7 @@
 package com.loopa.api.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,20 +10,21 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="servico")
-public class Servico {
+public class Servico implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idServico;
+	private long idServico;
 	
 	private String descricao;
 	
 	public Servico() {}
 	
-	public int getIdServico() {
+	public long getIdServico() {
 		return idServico;
 	}
-	public void setIdServico(int id) {
+	public void setIdServico(long id) {
 		this.idServico = id;
 	}
 	public String getDescricao() {
