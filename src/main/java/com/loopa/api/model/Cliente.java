@@ -1,7 +1,12 @@
 package com.loopa.api.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.loopa.api.model.enums.*;
 
 @Entity
 @Table(name="cliente")
@@ -26,6 +33,10 @@ public class Cliente  extends Usuario implements Serializable{
 	private double latitude;
 	private double longitude;
 	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="perfis_cliente")
+	private Set<Integer> perfis = new HashSet<>();
+	
 	public Cliente() {
 		super();
 	}
@@ -34,6 +45,13 @@ public class Cliente  extends Usuario implements Serializable{
 		super(id, email, senha, nome, telefone, endereco);
 	}
 	
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
+	}
 	//public Long getId() {
 	//	return id;
 	//}

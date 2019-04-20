@@ -1,13 +1,19 @@
 package com.loopa.api.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import javax.persistence.Entity;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
+
+import com.loopa.api.model.enums.Perfil;
 
 @MappedSuperclass
 public class Usuario implements Serializable{
@@ -33,7 +39,7 @@ public class Usuario implements Serializable{
 		this.telefone = telefone;
 		this.endereco = endereco;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

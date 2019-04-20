@@ -21,6 +21,7 @@ import com.loopa.api.model.Cliente;
 import com.loopa.api.model.Profissional;
 import com.loopa.api.model.Servico;
 import com.loopa.api.model.Usuario;
+import com.loopa.api.model.enums.Perfil;
 
 @SpringBootApplication
 public class LoopaApplication implements CommandLineRunner{
@@ -71,6 +72,7 @@ public class LoopaApplication implements CommandLineRunner{
 		p.setEndereco("");
 		p.setTelefone("");
 		p.setStatus("ativo");
+		p.addPerfil(Perfil.PROFISSIONAL);
 		profissionalRepository.save(p);
 		
 		for(long i = 2; i < 20; i++) {
@@ -85,6 +87,7 @@ public class LoopaApplication implements CommandLineRunner{
 			p1.setEndereco("");
 			p1.setTelefone("");
 			p1.setStatus("ativo");
+			p1.addPerfil(Perfil.PROFISSIONAL);
 			profissionalRepository.save(p1);
 		}
 		
@@ -94,6 +97,7 @@ public class LoopaApplication implements CommandLineRunner{
 		c.setSenha(pe.encode("123"));
 		c.setLatitude(-0.32015);
 		c.setLongitude(0.1546);
+		c.addPerfil(Perfil.CLIENTE);
 		clienteRepository.save(c);
 		
 		for(long i = 2; i < 10; i++) {
@@ -104,6 +108,7 @@ public class LoopaApplication implements CommandLineRunner{
 			c1.setSenha(pe.encode("123"));
 			c1.setLatitude(-0.32015);
 			c1.setLongitude(0.1546);
+			c1.addPerfil(Perfil.CLIENTE);
 			clienteRepository.save(c1);
 		}
 		
