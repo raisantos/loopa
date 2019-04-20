@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.in28minutes.springboot.rest.example</groupId>
-	<artifactId>spring-boot-2-rest-service-basic</artifactId>
+	<groupId>com.loopa.api</groupId>
+	<artifactId>loopa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-2-rest-service</name>
-	<description>Spring Boot 2 and REST - Example Project</description>
+	<name>loopa</name>
+	<description>Loopa Spring Boot 2 and REST</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
