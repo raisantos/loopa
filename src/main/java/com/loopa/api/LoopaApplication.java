@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.loopa.api.irepository.IAtendimentoRepository;
 import com.loopa.api.irepository.IAvaliacaoRepository;
@@ -23,6 +25,10 @@ import com.loopa.api.model.Usuario;
 @SpringBootApplication
 public class LoopaApplication implements CommandLineRunner{
 
+	@Autowired
+	@Lazy
+	BCryptPasswordEncoder pe;
+	
 	@Autowired
 	IClienteRepository clienteRepository;
 	
@@ -58,7 +64,7 @@ public class LoopaApplication implements CommandLineRunner{
 		Profissional p = new Profissional();
 		p.setEmail("rai@gmail");
 		p.setNome("Rai");
-		p.setSenha("123");
+		p.setSenha(pe.encode("123"));
 		p.setLatitude(-0.32015);
 		p.setLongitude(0.1546);
 		p.setServico(servico2);
@@ -72,7 +78,7 @@ public class LoopaApplication implements CommandLineRunner{
 			p1.setId(i);
 			p1.setEmail("rai@gmail");
 			p1.setNome("Rai");
-			p1.setSenha("123");
+			p1.setSenha(pe.encode("123"));
 			p1.setLatitude(-0.32015);
 			p1.setLongitude(0.1546);
 			p1.setServico(servico2);
@@ -85,7 +91,7 @@ public class LoopaApplication implements CommandLineRunner{
 		Cliente c = new Cliente();
 		c.setEmail("jailson@gmail");
 		c.setNome("Jailson");
-		c.setSenha("123");
+		c.setSenha(pe.encode("123"));
 		c.setLatitude(-0.32015);
 		c.setLongitude(0.1546);
 		clienteRepository.save(c);
@@ -95,7 +101,7 @@ public class LoopaApplication implements CommandLineRunner{
 			c1.setId(i);
 			c1.setEmail("jailson@gmail");
 			c1.setNome("Jailson");
-			c1.setSenha("123");
+			c1.setSenha(pe.encode("123"));
 			c1.setLatitude(-0.32015);
 			c1.setLongitude(0.1546);
 			clienteRepository.save(c1);
