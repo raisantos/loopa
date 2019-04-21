@@ -92,8 +92,8 @@ public class LoopaApplication implements CommandLineRunner{
 		}
 		
 		Cliente c = new Cliente();
-		c.setEmail("jailson@gmail");
-		c.setNome("Jailson");
+		c.setEmail("rai@gmail.com");
+		c.setNome("Rai");
 		c.setSenha(pe.encode("123"));
 		c.setLatitude(-0.32015);
 		c.setLongitude(0.1546);
