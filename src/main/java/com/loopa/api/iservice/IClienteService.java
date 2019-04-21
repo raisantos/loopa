@@ -15,4 +15,5 @@ public interface IClienteService {
 	public void deleteCliente(@PathVariable Long id);
 	public ResponseEntity<Object> createCliente(@RequestBody Cliente cliente);
 	public ResponseEntity<Object> updateCliente(@RequestBody Cliente cliente, @PathVariable long id);
+	public Cliente findByEmail(String email);
 }

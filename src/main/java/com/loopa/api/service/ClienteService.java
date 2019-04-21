@@ -15,6 +15,7 @@ import com.loopa.api.iservice.IClienteService;
 import com.loopa.api.model.Cliente;
 import com.loopa.api.security.UserSS;
 import com.loopa.api.service.exception.AuthorizationException;
+import com.loopa.api.service.exception.ObjectNotFoundException;
 
 @Service("clienteService")
 public class ClienteService implements IClienteService{
@@ -38,6 +39,20 @@ public class ClienteService implements IClienteService{
 			throw new ClienteNotFoundException("id-" + id);
 
 		return cliente.get();
+	}
+	
+	public Cliente findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if (user == null || !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+	
+		Cliente obj = clienteRepository.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
+		}
+		return obj;
 	}
 
 	public void deleteCliente(Long id) {

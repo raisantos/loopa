@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.loopa.api.iservice.IClienteService;
@@ -80,5 +83,11 @@ public class Requisicao {
 	@PutMapping("/clientes/{id}")
 	public ResponseEntity<Object> updateCliente(@RequestBody Cliente cliente, @PathVariable long id) {
 		return clienteService.updateCliente(cliente, id);
+	}
+	
+	@RequestMapping(value="/clientes/email", method=RequestMethod.GET)
+	public ResponseEntity<Cliente> find(@RequestParam(value="value") String email) {
+		Cliente obj = clienteService.findByEmail(email);
+		return ResponseEntity.ok().body(obj);
 	}
 }
