@@ -26,7 +26,7 @@ public class AvaliacaoResource {
 	AvaliacaoResource(){
 	}
 	
-	@GetMapping("/avaliacoes")
+	//@GetMapping("/avaliacoes")
 	public List<Avaliacao> retrieveAllAvaliacoes() {
 		return avaliacaoService.retrieveAllAvaliacoes();
 	}
@@ -52,4 +52,8 @@ public class AvaliacaoResource {
 		return avaliacaoService.updateAvaliacao(avaliacao, id);
 	}
 
+	@GetMapping("/avaliacoes")
+	public List<Avaliacao> findByCliente() {
+		return avaliacaoService.findByCliente();
+	}
 }

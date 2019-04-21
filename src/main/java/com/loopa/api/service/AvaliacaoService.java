@@ -12,19 +12,27 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.loopa.api.exception.ClienteNotFoundException;
 import com.loopa.api.exception.ProfissionalNotFoundException;
 import com.loopa.api.irepository.IAvaliacaoRepository;
+import com.loopa.api.irepository.IClienteRepository;
 import com.loopa.api.irepository.IProfissionalRepository;
 import com.loopa.api.irepository.IServicoRepository;
 import com.loopa.api.iservice.IAvaliacaoService;
+import com.loopa.api.iservice.IClienteService;
 import com.loopa.api.iservice.IProfissionalService;
 import com.loopa.api.iservice.IServicoService;
 import com.loopa.api.model.Avaliacao;
+import com.loopa.api.model.Cliente;
 import com.loopa.api.model.Profissional;
+import com.loopa.api.security.UserSS;
+import com.loopa.api.service.exception.AuthorizationException;
 
 @Service("avaliacaoService")
 public class AvaliacaoService implements IAvaliacaoService{
 
 	@Autowired
 	private IAvaliacaoRepository avaliacaoRepository;
+	
+	@Autowired
+	private IClienteService clienteService;
 	
 	public List<Avaliacao> retrieveAllAvaliacoes() {
 		return avaliacaoRepository.findAll();
@@ -65,5 +73,14 @@ public class AvaliacaoService implements IAvaliacaoService{
 		avaliacaoRepository.save(avaliacao);
 
 		return ResponseEntity.noContent().build();
+	}
+	
+	public List<Avaliacao> findByCliente(){
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		Cliente cliente = clienteService.retrieveCliente(user.getId());
+		return avaliacaoRepository.findByCliente(cliente);
 	}
 }
