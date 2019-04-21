@@ -11,8 +11,8 @@ import com.loopa.api.model.Cliente;
 public interface IClienteService {
 
 	public List<Cliente> retrieveAllClientes();
-	public Cliente retrieveCliente(@PathVariable long id);
-	public void deleteCliente(@PathVariable long id);
+	public Cliente retrieveCliente(@PathVariable Long id);
+	public void deleteCliente(@PathVariable Long id);
 	public ResponseEntity<Object> createCliente(@RequestBody Cliente cliente);
 	public ResponseEntity<Object> updateCliente(@RequestBody Cliente cliente, @PathVariable long id);
 }

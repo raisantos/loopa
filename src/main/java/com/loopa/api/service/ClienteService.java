@@ -13,6 +13,8 @@ import com.loopa.api.exception.ClienteNotFoundException;
 import com.loopa.api.irepository.IClienteRepository;
 import com.loopa.api.iservice.IClienteService;
 import com.loopa.api.model.Cliente;
+import com.loopa.api.security.UserSS;
+import com.loopa.api.service.exception.AuthorizationException;
 
 @Service("clienteService")
 public class ClienteService implements IClienteService{
@@ -24,7 +26,12 @@ public class ClienteService implements IClienteService{
 		return clienteRepository.findAll();
 	}
 
-	public Cliente retrieveCliente(long id) {
+	public Cliente retrieveCliente(Long id) {
+		UserSS user = UserService.authenticated();
+		if(user==null || !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
 		Optional<Cliente> cliente = clienteRepository.findById(id);
 
 		if (!cliente.isPresent())
@@ -33,7 +40,7 @@ public class ClienteService implements IClienteService{
 		return cliente.get();
 	}
 
-	public void deleteCliente(long id) {
+	public void deleteCliente(Long id) {
 		clienteRepository.deleteById(id);
 	}
 
