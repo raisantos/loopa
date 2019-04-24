@@ -60,6 +60,7 @@ public class ClienteService implements IClienteService{
 	}
 
 	public ResponseEntity<Object> createCliente(Cliente cliente) {
+		cliente.setId(null);
 		Cliente savedCliente = clienteRepository.save(cliente);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
