@@ -25,7 +25,8 @@ public class BuscaResource {
 	}
 	
 	@RequestMapping(value="/{servico}/{latitude}/{longitude}", method=RequestMethod.GET)
-	public ArrayList<Map<String,Object>> contextualSearch(@PathVariable String servico,@PathVariable double latitude, @PathVariable double longitude) throws IOException {
+	public ArrayList<Map<String,Object>> contextualSearch(@PathVariable String servico,@PathVariable String latitude, @PathVariable String longitude) throws IOException {
+		System.out.println("Busca Resource");
 		return buscaService.contextualSearch(servico, latitude, longitude);
 		
 	}

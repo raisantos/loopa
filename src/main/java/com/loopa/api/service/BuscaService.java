@@ -79,13 +79,14 @@ public class BuscaService implements IBuscaService{
 		this.searchRequest.source(searchSourceBuilder);
 	}
 	
-	public ArrayList<Map<String,Object>> contextualSearch(String servico, double latitude, double longitude) throws IOException {
+	public ArrayList<Map<String,Object>> contextualSearch(String servico, String latitude, String longitude) throws IOException {
+		System.out.println("Contextual Search " + servico);
 		setSearchRequest(new SearchRequest("profissionais"));
 		//double lat =  latitude
 		this.searchSourceBuilder.query(QueryBuilders.boolQuery()
-				.must(QueryBuilders.matchQuery("servico", servico))
+				.must(QueryBuilders.matchQuery("id_servico", Long.parseLong(servico)))
 				.must(QueryBuilders.matchQuery("status", "ativo"))
-				.must(QueryBuilders.geoDistanceQuery("location").point(latitude, longitude).distance(15, DistanceUnit.KILOMETERS)));
+				.must(QueryBuilders.geoDistanceQuery("location").point(Double.parseDouble(latitude), Double.parseDouble(longitude)).distance(15, DistanceUnit.KILOMETERS)));
 		this.searchRequest.source(searchSourceBuilder);
 		setSearchResponse(restClient.search(searchRequest, RequestOptions.DEFAULT));
 		SearchHits searchHits = getSearchResponse().getHits();
@@ -93,6 +94,7 @@ public class BuscaService implements IBuscaService{
 		for(SearchHit s: searchHits) {
 			a.add(s.getSourceAsMap());
 		}
+		System.out.println("End Contextual Search");
 		return a;
 	}
 	

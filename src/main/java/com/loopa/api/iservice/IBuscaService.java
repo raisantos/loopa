@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public interface IBuscaService {
 
-	public ArrayList<Map<String,Object>> contextualSearch(@PathVariable String servico,@PathVariable double latitude, @PathVariable double longitude) throws IOException;
+	public ArrayList<Map<String,Object>> contextualSearch(@PathVariable String servico,@PathVariable String latitude, @PathVariable String longitude) throws IOException;
 }
