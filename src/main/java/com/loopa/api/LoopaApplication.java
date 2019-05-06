@@ -112,7 +112,7 @@ public class LoopaApplication implements CommandLineRunner{
 			clienteRepository.save(c1);
 		}
 		
-		Avaliacao a = new Avaliacao();
+		/*Avaliacao a = new Avaliacao();
 		a.setCliente(c);
 		a.setComentario("muito bom");
 		a.setNota(5);
@@ -134,7 +134,7 @@ public class LoopaApplication implements CommandLineRunner{
 		a2.setComentario("muito bom");
 		a2.setNota(5);
 		a2.setProfissional(profissionalRepository.getOne((long) 3));
-		avaliacaoRepository.save(a2);
+		avaliacaoRepository.save(a2);*/
 		
 		Atendimento at = new Atendimento();
 		at.setCliente(c);

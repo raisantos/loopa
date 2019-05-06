@@ -31,20 +31,20 @@ public class AvaliacaoResource {
 		return avaliacaoService.retrieveAllAvaliacoes();
 	}
 
-	@GetMapping("/avaliacoes/{id}")
-	public Avaliacao retrieveAvaliacao(@PathVariable long id) {
-		return avaliacaoService.retrieveAvaliacao(id);
+	//@GetMapping("/avaliacoes/{id}")
+	//public Avaliacao retrieveAvaliacao(@PathVariable long id) {
+		//return avaliacaoService.retrieveAvaliacao(id);
 
-	}
+	//}
 
 	@DeleteMapping("/avaliacoes/{id}")
 	public void deleteAvaliacao(@PathVariable long id) {
 		avaliacaoService.deleteAvaliacao(id);;
 	}
 
-	@PostMapping("/avaliacoes")
-	public ResponseEntity<Object> createAvaliacao(@RequestBody Avaliacao avaliacao) {
-		return avaliacaoService.createAvaliacao(avaliacao);
+	@PostMapping("/avaliacoes/{profissional}/{nota}")
+	public ResponseEntity<Object> createAvaliacao(@RequestBody Avaliacao avaliacao, @PathVariable long profissional, @PathVariable int nota) {
+		return avaliacaoService.createAvaliacao(avaliacao, profissional, nota);
 	}
 		
 	@PutMapping("/avaliacoes/{id}")
@@ -55,5 +55,10 @@ public class AvaliacaoResource {
 	@GetMapping("/avaliacoes")
 	public List<Avaliacao> findByCliente() {
 		return avaliacaoService.findByCliente();
+	}
+	
+	@GetMapping("/avaliacoes/{profissional}")
+	public Avaliacao findByClienteAndProfissional(@PathVariable long profissional) {
+		return avaliacaoService.findByClienteAndProfissional(profissional);
 	}
 }

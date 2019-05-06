@@ -33,6 +33,9 @@ public class AvaliacaoService implements IAvaliacaoService{
 	
 	@Autowired
 	private IClienteService clienteService;
+
+	@Autowired
+	private IProfissionalService profissionalService;
 	
 	public List<Avaliacao> retrieveAllAvaliacoes() {
 		return avaliacaoRepository.findAll();
@@ -51,7 +54,18 @@ public class AvaliacaoService implements IAvaliacaoService{
 		avaliacaoRepository.deleteById(id);
 	}
 
-	public ResponseEntity<Object> createAvaliacao(Avaliacao avaliacao) {
+	public ResponseEntity<Object> createAvaliacao(Avaliacao avaliacao, long profissional, int nota) {
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		Cliente cliente = clienteService.retrieveCliente(user.getId());
+		Profissional p = profissionalService.retrieveProfissional(profissional);
+		avaliacao.setId(null);
+		avaliacao.setCliente(cliente);
+		avaliacao.setProfissional(p);
+		avaliacao.setNota(nota);
+		
 		Avaliacao avaliacaoNovo = avaliacaoRepository.save(avaliacao);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -82,5 +96,15 @@ public class AvaliacaoService implements IAvaliacaoService{
 		}
 		Cliente cliente = clienteService.retrieveCliente(user.getId());
 		return avaliacaoRepository.findByCliente(cliente);
+	}
+	
+	public Avaliacao findByClienteAndProfissional(long profissional){
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		Cliente cliente = clienteService.retrieveCliente(user.getId());
+		Profissional prof = profissionalService.retrieveProfissional(profissional);
+		return avaliacaoRepository.findByClienteAndProfissional(cliente, prof);
 	}
 }
