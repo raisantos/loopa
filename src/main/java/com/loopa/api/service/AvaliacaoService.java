@@ -75,17 +75,28 @@ public class AvaliacaoService implements IAvaliacaoService{
 
 	}
 	
-	public ResponseEntity<Object> updateAvaliacao(Avaliacao avaliacao, long id) {
+	public ResponseEntity<Object> updateAvaliacao(Avaliacao avaliacao, long id, long profissional) {
 
+		System.out.println(avaliacao.getId());
+		System.out.println(avaliacao.getNota());
 		Optional<Avaliacao> avaliacaoOptional = avaliacaoRepository.findById(id);
 
 		if (!avaliacaoOptional.isPresent())
 			return ResponseEntity.notFound().build();
 
+		System.out.println("OK");
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		Cliente cliente = clienteService.retrieveCliente(user.getId());
 		avaliacao.setId(id);
+		avaliacao.setCliente(cliente);
+		avaliacao.setProfissional(profissionalService.retrieveProfissional(profissional));
 		
+		System.out.println("SALVAR");
 		avaliacaoRepository.save(avaliacao);
-
+		System.out.println("SALVO");
 		return ResponseEntity.noContent().build();
 	}
 	

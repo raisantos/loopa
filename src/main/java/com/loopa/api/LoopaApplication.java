@@ -81,8 +81,8 @@ public class LoopaApplication implements CommandLineRunner{
 			p1.setEmail("rai@gmail");
 			p1.setNome("Rai");
 			p1.setSenha(pe.encode("123"));
-			p1.setLatitude(-0.32015);
-			p1.setLongitude(0.1546);
+			p1.setLatitude(-3.077819);
+			p1.setLongitude(-60.057634);
 			p1.setServico(servico2);
 			p1.setEndereco("");
 			p1.setTelefone("");

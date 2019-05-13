@@ -47,9 +47,9 @@ public class AvaliacaoResource {
 		return avaliacaoService.createAvaliacao(avaliacao, profissional, nota);
 	}
 		
-	@PutMapping("/avaliacoes/{id}")
-	public ResponseEntity<Object> updateAvaliacao(@RequestBody Avaliacao avaliacao, @PathVariable long id) {
-		return avaliacaoService.updateAvaliacao(avaliacao, id);
+	@PutMapping("/avaliacoes/{id}/{profissional}")
+	public ResponseEntity<Object> updateAvaliacao(@RequestBody Avaliacao avaliacao, @PathVariable long id, @PathVariable long profissional) {
+		return avaliacaoService.updateAvaliacao(avaliacao, id, profissional);
 	}
 
 	@GetMapping("/avaliacoes")

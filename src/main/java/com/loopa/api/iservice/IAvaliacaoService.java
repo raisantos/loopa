@@ -17,7 +17,7 @@ public interface IAvaliacaoService {
 	public Avaliacao retrieveAvaliacao(@PathVariable long id);
 	public void deleteAvaliacao(@PathVariable long id);
 	public ResponseEntity<Object> createAvaliacao(@RequestBody Avaliacao avaliacao, @PathVariable long profissional, @PathVariable int nota);
-	public ResponseEntity<Object> updateAvaliacao(@RequestBody Avaliacao avaliacao, @PathVariable long id);
+	public ResponseEntity<Object> updateAvaliacao(@RequestBody Avaliacao avaliacao, @PathVariable long id, @PathVariable long profissional);
 	public List<Avaliacao> findByCliente();
 	public Avaliacao findByClienteAndProfissional(long profissional);
 }
