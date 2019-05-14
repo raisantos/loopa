@@ -22,6 +22,9 @@ import com.loopa.api.model.Profissional;
 import com.loopa.api.model.Servico;
 import com.loopa.api.model.Usuario;
 import com.loopa.api.model.enums.Perfil;
+import com.loopa.api.util.RandomString;
+
+import io.netty.util.internal.ThreadLocalRandom;
 
 @SpringBootApplication
 public class LoopaApplication implements CommandLineRunner{
@@ -136,9 +139,14 @@ public class LoopaApplication implements CommandLineRunner{
 		a2.setProfissional(profissionalRepository.getOne((long) 3));
 		avaliacaoRepository.save(a2);*/
 		
+		RandomString ramdom = new RandomString(10, ThreadLocalRandom.current(), "ABCDEFGHIJKLMNOPQRSTWXYZ0123456789");
+		String codigo = ramdom.nextString();
+		System.out.println("Codigo Atendimento = " + codigo);
+		
 		Atendimento at = new Atendimento();
 		at.setCliente(c);
 		at.setData(new Date());
+		at.setCodigo(codigo);
 		at.setProfissional(p);
 		at.setLongitudeCliente(c.getLongitude());
 		at.setLatitudeCliente(c.getLatitude());

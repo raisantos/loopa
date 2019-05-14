@@ -13,7 +13,7 @@ public interface IAtendimentoService {
 	public List<Atendimento> retrieveAllAtendimentos();
 	public Atendimento retrieveAtendimento(@PathVariable long id);
 	public void deleteAtendimento(@PathVariable long id);
-	public ResponseEntity<Object> createAtendimento(@RequestBody Atendimento atendimento);
+	public ResponseEntity<Object> createAtendimento(@PathVariable long profissional);
 	public ResponseEntity<Object> updateAtendimento(@RequestBody Atendimento atendimento, @PathVariable long id);
-
+	public List<Atendimento> findByCliente();
 }

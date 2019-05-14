@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.loopa.api.iservice.IAtendimentoService;
 import com.loopa.api.model.Atendimento;
+import com.loopa.api.model.Avaliacao;
 
 @RestController
 @CrossOrigin
@@ -26,10 +27,10 @@ public class AtendimentoResource {
 	AtendimentoResource(){
 	}
 
-	@GetMapping("/atendimentos")
-	public List<Atendimento> retrieveAllAtendimentos() {
-		return atendimentoService.retrieveAllAtendimentos();
-	}
+	//@GetMapping("/atendimentos")
+	//public List<Atendimento> retrieveAllAtendimentos() {
+	//	return atendimentoService.retrieveAllAtendimentos();
+	//}
 
 	@GetMapping("/atendimentos/{id}")
 	public Atendimento retrieveAtendimento(@PathVariable long id) {
@@ -42,13 +43,18 @@ public class AtendimentoResource {
 		atendimentoService.deleteAtendimento(id);;
 	}
 
-	@PostMapping("/atendimentos")
-	public ResponseEntity<Object> createAtendimento(@RequestBody Atendimento atendimento) {
-		return atendimentoService.createAtendimento(atendimento);
+	@PostMapping("/atendimentos/{profissional}")
+	public ResponseEntity<Object> createAtendimento(@PathVariable long profissional) {
+		return atendimentoService.createAtendimento(profissional);
 	}
 		
 	@PutMapping("/atendimentos/{id}")
 	public ResponseEntity<Object> updateAtendimento(@RequestBody Atendimento atendimento, @PathVariable long id) {
 		return atendimentoService.updateAtendimento(atendimento, id);
+	}
+	
+	@GetMapping("/atendimentos")
+	public List<Atendimento> findByCliente() {
+		return atendimentoService.findByCliente();
 	}
 }

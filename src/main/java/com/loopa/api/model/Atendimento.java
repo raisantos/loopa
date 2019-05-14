@@ -25,7 +25,8 @@ public class Atendimento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Date data;
-	
+	private String codigo;
+
 	@ManyToOne
 	@JoinColumn(name = "id_profissional", nullable = false)
 	private Profissional profissional;
@@ -51,6 +52,14 @@ public class Atendimento implements Serializable {
 	
 	public void setData(Date data) {
 		this.data = data;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 	
 	public Profissional getProfissional() {
