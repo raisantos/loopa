@@ -15,6 +15,7 @@ import com.loopa.api.security.JWTUtil;
 import com.loopa.api.security.UserSS;
 //import com.nelioalves.cursomc.services.AuthService;
 import com.loopa.api.service.UserService;
+import com.loopa.api.service.exception.AuthorizationException;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -25,6 +26,15 @@ public class AuthResource {
 	
 	//@Autowired
 	//private AuthService service;
+	
+	@RequestMapping(value = "/authorith", method = RequestMethod.GET)
+	public UserSS getAuthorith() {
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		return user;
+	}
 	
 	@RequestMapping(value = "/refresh_token", method = RequestMethod.POST)
 	public ResponseEntity<Void> refreshToken(HttpServletResponse response) {

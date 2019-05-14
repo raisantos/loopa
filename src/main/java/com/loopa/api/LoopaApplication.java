@@ -66,8 +66,8 @@ public class LoopaApplication implements CommandLineRunner{
 		servicoRepository.save(servico2);
 		
 		Profissional p = new Profissional();
-		p.setEmail("rai@gmail");
-		p.setNome("Rai");
+		p.setEmail("jaja@gmail");
+		p.setNome("jaja");
 		p.setSenha(pe.encode("123"));
 		p.setLatitude(-0.32015);
 		p.setLongitude(0.1546);
