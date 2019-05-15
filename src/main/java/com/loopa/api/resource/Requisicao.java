@@ -70,6 +70,11 @@ public class Requisicao {
 		return profissionalService.checkIn(latitude, longitude);
 	}
 	
+	@PutMapping("/profissionais/checkout")
+	public ResponseEntity<Object> checkOut() {
+		return profissionalService.checkOut();
+	}
+	
 	@GetMapping("/clientes")
 	public List<Cliente> retrieveAllClientes() {
 		return clienteService.retrieveAllClientes();

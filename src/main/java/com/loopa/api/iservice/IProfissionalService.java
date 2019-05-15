@@ -16,5 +16,6 @@ public interface IProfissionalService {
 	public ResponseEntity<Object> createProfissional( Profissional profissional);
 	public ResponseEntity<Object> updateProfissional(Profissional profissional, long id);
 	public ResponseEntity<Object> checkIn(double latitude, double longitude);
+	public ResponseEntity<Object> checkOut();
 	public Profissional findByEmail(String email);
 }

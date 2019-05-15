@@ -92,4 +92,16 @@ public class ProfissionalService implements IProfissionalService{
 		profissionalRepository.save(profissional);
 		return ResponseEntity.noContent().build();
 	}
+	
+	public ResponseEntity<Object> checkOut(){
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		Profissional profissional = profissionalRepository.getOne(user.getId());
+		profissional.setStatus("inativo");
+		
+		profissionalRepository.save(profissional);
+		return ResponseEntity.noContent().build();
+	}
 }

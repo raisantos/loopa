@@ -74,7 +74,7 @@ public class LoopaApplication implements CommandLineRunner{
 		p.setServico(servico2);
 		p.setEndereco("");
 		p.setTelefone("");
-		p.setStatus("ativo");
+		p.setStatus("inativo");
 		p.addPerfil(Perfil.PROFISSIONAL);
 		profissionalRepository.save(p);
 		
