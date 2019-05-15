@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -14,6 +16,7 @@ import com.loopa.api.irepository.IProfissionalRepository;
 import com.loopa.api.iservice.IProfissionalService;
 import com.loopa.api.model.Cliente;
 import com.loopa.api.model.Profissional;
+import com.loopa.api.model.enums.Perfil;
 import com.loopa.api.security.UserSS;
 import com.loopa.api.service.exception.AuthorizationException;
 import com.loopa.api.service.exception.ObjectNotFoundException;
@@ -21,6 +24,10 @@ import com.loopa.api.service.exception.ObjectNotFoundException;
 @Service("profissionalService")
 public class ProfissionalService implements IProfissionalService{
 
+	@Autowired
+	@Lazy
+	BCryptPasswordEncoder pe;
+	
 	@Autowired
 	private IProfissionalRepository profissionalRepository;
 
@@ -56,6 +63,10 @@ public class ProfissionalService implements IProfissionalService{
 	}
 
 	public ResponseEntity<Object> createProfissional( Profissional profissional) {
+		profissional.setId(null);
+		profissional.setStatus("inativo");
+		profissional.setSenha(pe.encode(profissional.getSenha()));
+		profissional.addPerfil(Perfil.PROFISSIONAL);
 		Profissional savedProfissional = profissionalRepository.save(profissional);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
