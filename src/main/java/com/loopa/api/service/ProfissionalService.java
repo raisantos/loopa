@@ -12,7 +12,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.loopa.api.exception.ProfissionalNotFoundException;
 import com.loopa.api.irepository.IProfissionalRepository;
 import com.loopa.api.iservice.IProfissionalService;
+import com.loopa.api.model.Cliente;
 import com.loopa.api.model.Profissional;
+import com.loopa.api.security.UserSS;
+import com.loopa.api.service.exception.AuthorizationException;
+import com.loopa.api.service.exception.ObjectNotFoundException;
 
 @Service("profissionalService")
 public class ProfissionalService implements IProfissionalService{
@@ -31,6 +35,20 @@ public class ProfissionalService implements IProfissionalService{
 			throw new ProfissionalNotFoundException("id-" + id);
 
 		return profissional.get();
+	}
+	
+	public Profissional findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if (user == null || !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+	
+		Profissional obj = profissionalRepository.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
+		}
+		return obj;
 	}
 
 	public void deleteProfissional(long id) {
@@ -58,6 +76,20 @@ public class ProfissionalService implements IProfissionalService{
 		
 		profissionalRepository.save(profissional);
 
+		return ResponseEntity.noContent().build();
+	}
+	
+	public ResponseEntity<Object> checkIn(double latitude, double longitude){
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		Profissional profissional = profissionalRepository.getOne(user.getId());
+		profissional.setLatitude(latitude);
+		profissional.setLongitude(longitude);
+		profissional.setStatus("ativo");
+		
+		profissionalRepository.save(profissional);
 		return ResponseEntity.noContent().build();
 	}
 }

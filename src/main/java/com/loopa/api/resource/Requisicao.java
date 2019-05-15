@@ -43,6 +43,12 @@ public class Requisicao {
 	public Profissional retrieveProfissional(@PathVariable long id) {
 		return profissionalService.retrieveProfissional(id);
 	}
+	
+	@RequestMapping(value="/profissionais/email", method=RequestMethod.GET)
+	public ResponseEntity<Profissional> findProfissional(@RequestParam(value="value") String email) {
+		Profissional obj = profissionalService.findByEmail(email);
+		return ResponseEntity.ok().body(obj);
+	}
 
 	@DeleteMapping("/profissionais/{id}")
 	public void deleteProfissional(@PathVariable long id) {
@@ -57,6 +63,11 @@ public class Requisicao {
 	@PutMapping("/profissionais/{id}")
 	public ResponseEntity<Object> updateProfissional(@RequestBody Profissional profissional, @PathVariable long id) {
 		return profissionalService.updateProfissional(profissional, id);
+	}
+	
+	@PutMapping("/profissionais/checkin/{latitude}/{longitude}")
+	public ResponseEntity<Object> checkIn(@PathVariable double latitude, @PathVariable double longitude) {
+		return profissionalService.checkIn(latitude, longitude);
 	}
 	
 	@GetMapping("/clientes")
