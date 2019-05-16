@@ -38,6 +38,8 @@ import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.stereotype.Service;
 
 import com.loopa.api.iservice.IRecomendacaoService;
+import com.loopa.api.security.UserSS;
+import com.loopa.api.service.exception.AuthorizationException;
 
 
 @Service("recomendacaoService")
@@ -86,6 +88,11 @@ public class RecomendacaoService implements IRecomendacaoService{
 	}
 
 	public ArrayList<Map<String, Object>> contextualPostFiltering(double latitude, double longitude) throws IOException, TasteException {
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
 		PGSimpleDataSource postgreDataSource = new PGSimpleDataSource();
 		postgreDataSource.setServerName("localhost");
 		postgreDataSource.setUser("loopa");
@@ -106,12 +113,15 @@ public class RecomendacaoService implements IRecomendacaoService{
 		UserSimilarity similarity = new PearsonCorrelationSimilarity(postgreModel);
 		UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0, similarity, postgreModel);
 		UserBasedRecommender recommender = new GenericUserBasedRecommender(postgreModel, neighborhood, similarity);
-		List<RecommendedItem> recommendations = recommender.recommend(2, 3);
+		List<RecommendedItem> recommendations = recommender.recommend(user.getId(), 3);
 		System.out.println(recommendations.size());
 		for (RecommendedItem recommendation : recommendations) {
 		  System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + recommendation);
 		}
 		System.out.println("#####################################################");
+		if (recommendations.isEmpty()) {
+			return null;
+		}
 		return compoundQuerySearch(recommendations, latitude, longitude);
 	}
 	/*public ArrayList<Map<String,Object>> contextualPostFiltering(double latitude, double longitude) throws IOException, TasteException {

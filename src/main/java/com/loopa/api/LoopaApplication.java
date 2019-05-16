@@ -73,7 +73,7 @@ public class LoopaApplication implements CommandLineRunner{
 		p.setLongitude(0.1546);
 		p.setServico(servico2);
 		p.setEndereco("");
-		p.setTelefone("");
+		p.setTelefone("993792088");
 		p.setStatus("inativo");
 		p.addPerfil(Perfil.PROFISSIONAL);
 		profissionalRepository.save(p);
@@ -88,27 +88,43 @@ public class LoopaApplication implements CommandLineRunner{
 			p1.setLongitude(-60.057634);
 			p1.setServico(servico2);
 			p1.setEndereco("");
-			p1.setTelefone("");
+			p1.setTelefone("993792088");
 			p1.setStatus("ativo");
 			p1.addPerfil(Perfil.PROFISSIONAL);
 			profissionalRepository.save(p1);
 		}
 		
+		Cliente c0 = new Cliente();
+		c0.setId((long)1);
+		c0.setEmail("jose@gmail");
+		c0.setNome("jose");
+		c0.setSenha(pe.encode("123"));
+		c0.setTelefone("993792088");
+		c0.setLatitude(-0.32015);
+		c0.setLongitude(0.1546);
+		c0.addPerfil(Perfil.CLIENTE);
+		clienteRepository.save(c0);
+		
 		Cliente c = new Cliente();
+		c.setId((long)2);
 		c.setEmail("rai@gmail.com");
 		c.setNome("Rai");
 		c.setSenha(pe.encode("123"));
+		c.setTelefone("993792088");
 		c.setLatitude(-0.32015);
 		c.setLongitude(0.1546);
 		c.addPerfil(Perfil.CLIENTE);
 		clienteRepository.save(c);
 		
-		for(long i = 2; i < 10; i++) {
+		
+		
+		for(long i = 3; i < 10; i++) {
 			Cliente c1 = new Cliente();
 			c1.setId(i);
 			c1.setEmail("jailson@gmail");
 			c1.setNome("Jailson");
 			c1.setSenha(pe.encode("123"));
+			c1.setTelefone("993792088");
 			c1.setLatitude(-0.32015);
 			c1.setLongitude(0.1546);
 			c1.addPerfil(Perfil.CLIENTE);
