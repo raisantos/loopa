@@ -29,8 +29,11 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
+import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder.FilterFunctionBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -113,7 +116,7 @@ public class RecomendacaoService implements IRecomendacaoService{
 		UserSimilarity similarity = new PearsonCorrelationSimilarity(postgreModel);
 		UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0, similarity, postgreModel);
 		UserBasedRecommender recommender = new GenericUserBasedRecommender(postgreModel, neighborhood, similarity);
-		List<RecommendedItem> recommendations = recommender.recommend(user.getId(), 3);
+		List<RecommendedItem> recommendations = recommender.recommend(user.getId(), 10);
 		System.out.println(recommendations.size());
 		for (RecommendedItem recommendation : recommendations) {
 		  System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + recommendation);
@@ -139,21 +142,25 @@ public class RecomendacaoService implements IRecomendacaoService{
 	public ArrayList<Map<String,Object>> compoundQuerySearch(List<RecommendedItem> recommendations, double latitude, double longitude) throws IOException {
 			setSearchRequest(new SearchRequest("profissionais"));
 			
-			String ids[] = new String[3];
+			String ids[] = new String[recommendations.size()];
 			for (int i = 0; i < recommendations.size(); i++) {
 				ids[i] = Long.toString(recommendations.get(i).getItemID());
 				System.out.println(Long.toString(recommendations.get(i).getItemID()));
 			}
-			this.searchSourceBuilder.query(QueryBuilders.boolQuery()
+			
+			this.searchSourceBuilder.query(QueryBuilders.functionScoreQuery(QueryBuilders.boolQuery()
+					.must(QueryBuilders.geoDistanceQuery("location").point(latitude, longitude).distance(15, DistanceUnit.KILOMETERS))
 					.must(QueryBuilders.idsQuery().addIds(ids))
-					.must(QueryBuilders.matchQuery("status", "ativo"))
-					.must(QueryBuilders.geoDistanceQuery("location").point(latitude, longitude).distance(15, DistanceUnit.KILOMETERS)));
+					.must(QueryBuilders.matchQuery("status", "ativo")),
+					ScoreFunctionBuilders.gaussDecayFunction("location", new GeoPoint(latitude, longitude), "2km")));
+			
 			this.searchRequest.source(searchSourceBuilder);
 			setSearchResponse(restClient.search(searchRequest, RequestOptions.DEFAULT));
 			SearchHits searchHits = getSearchResponse().getHits();
 			System.out.println("HITS = " + searchHits.getTotalHits());
 			ArrayList<Map<String,Object>> recommendationList = new ArrayList<Map<String,Object>>();
 			for(SearchHit s: searchHits) {
+				System.out.println(s.getSourceAsMap().values());
 				recommendationList.add(s.getSourceAsMap());
 			}
 			return recommendationList;

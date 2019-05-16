@@ -10,8 +10,10 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -83,10 +85,18 @@ public class BuscaService implements IBuscaService{
 		System.out.println("Contextual Search " + servico);
 		setSearchRequest(new SearchRequest("profissionais"));
 		//double lat =  latitude
-		this.searchSourceBuilder.query(QueryBuilders.boolQuery()
+		
+		/*this.searchSourceBuilder.query(QueryBuilders.boolQuery()
 				.must(QueryBuilders.matchQuery("id_servico", Long.parseLong(servico)))
 				.must(QueryBuilders.matchQuery("status", "ativo"))
-				.must(QueryBuilders.geoDistanceQuery("location").point(Double.parseDouble(latitude), Double.parseDouble(longitude)).distance(15, DistanceUnit.KILOMETERS)));
+				.must(QueryBuilders.geoDistanceQuery("location").point(Double.parseDouble(latitude), Double.parseDouble(longitude)).distance(15, DistanceUnit.KILOMETERS)));*/
+		
+		this.searchSourceBuilder.query(QueryBuilders.functionScoreQuery(QueryBuilders.boolQuery()
+				.must(QueryBuilders.geoDistanceQuery("location").point(Double.parseDouble(latitude), Double.parseDouble(longitude)).distance(15, DistanceUnit.KILOMETERS))
+				.must(QueryBuilders.matchQuery("status", "ativo"))
+				.must(QueryBuilders.matchQuery("id_servico", Long.parseLong(servico))),
+				ScoreFunctionBuilders.gaussDecayFunction("location", new GeoPoint(Double.parseDouble(latitude), Double.parseDouble(longitude)), "2km")));
+		
 		this.searchRequest.source(searchSourceBuilder);
 		setSearchResponse(restClient.search(searchRequest, RequestOptions.DEFAULT));
 		SearchHits searchHits = getSearchResponse().getHits();
