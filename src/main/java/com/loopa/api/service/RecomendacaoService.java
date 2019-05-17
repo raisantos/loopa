@@ -102,7 +102,7 @@ public class RecomendacaoService implements IRecomendacaoService{
 		postgreDataSource.setPassword("loopa");
 		postgreDataSource.setDatabaseName("loopa");
 		
-		JDBCDataModel postgreModel = new PostgreSQLJDBCDataModel(postgreDataSource,"teste","id_cliente","id_profissional", "nota", null);
+		JDBCDataModel postgreModel = new PostgreSQLJDBCDataModel(postgreDataSource,"avaliacao","id_cliente","id_profissional", "nota", null);
 		System.out.println(postgreModel.getNumUsers());
 		System.out.println(postgreModel.getNumItems());
 		System.out.println(postgreModel.getNumUsersWithPreferenceFor(2));

@@ -43,8 +43,8 @@ public class AvaliacaoResource {
 	}
 
 	@PostMapping("/avaliacoes/{profissional}/{nota}")
-	public ResponseEntity<Object> createAvaliacao(@RequestBody Avaliacao avaliacao, @PathVariable long profissional, @PathVariable int nota) {
-		return avaliacaoService.createAvaliacao(avaliacao, profissional, nota);
+	public ResponseEntity<Object> createAvaliacao(@PathVariable long profissional, @PathVariable int nota) {
+		return avaliacaoService.createAvaliacao(profissional, nota);
 	}
 		
 	@PutMapping("/avaliacoes/{id}/{profissional}")
@@ -60,5 +60,10 @@ public class AvaliacaoResource {
 	@GetMapping("/avaliacoes/{profissional}")
 	public Avaliacao findByClienteAndProfissional(@PathVariable long profissional) {
 		return avaliacaoService.findByClienteAndProfissional(profissional);
+	}
+	
+	@GetMapping("/avaliacoes/media/{profissional}")
+	public Double getAverageProfissional(@PathVariable long profissional) {
+		return avaliacaoService.getAverageProfissional(profissional);
 	}
 }

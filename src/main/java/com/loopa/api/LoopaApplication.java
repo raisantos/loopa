@@ -146,13 +146,13 @@ public class LoopaApplication implements CommandLineRunner{
 			a1.setNota(5);
 			a1.setProfissional(profissionalRepository.getOne(i));
 			avaliacaoRepository.save(a1);
-		}
+		}*/
 		
-		Avaliacao a2 = new Avaliacao();
-		a2.setCliente(clienteRepository.getOne((long) 1));
+		/*Avaliacao a2 = new Avaliacao();
+		a2.setCliente(clienteRepository.getOne((long) 2));
 		a2.setComentario("muito bom");
 		a2.setNota(5);
-		a2.setProfissional(profissionalRepository.getOne((long) 3));
+		a2.setProfissional(profissionalRepository.getOne((long) 12));
 		avaliacaoRepository.save(a2);*/
 		
 		RandomString ramdom = new RandomString(10, ThreadLocalRandom.current(), "ABCDEFGHIJKLMNOPQRSTWXYZ0123456789");

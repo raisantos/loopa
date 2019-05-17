@@ -1,6 +1,7 @@
 package com.loopa.api.service;
 
 import java.net.URI;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,8 @@ import com.loopa.api.service.exception.AuthorizationException;
 @Service("avaliacaoService")
 public class AvaliacaoService implements IAvaliacaoService{
 
+	private static DecimalFormat df2 = new DecimalFormat("#.#");
+	
 	@Autowired
 	private IAvaliacaoRepository avaliacaoRepository;
 	
@@ -54,14 +57,16 @@ public class AvaliacaoService implements IAvaliacaoService{
 		avaliacaoRepository.deleteById(id);
 	}
 
-	public ResponseEntity<Object> createAvaliacao(Avaliacao avaliacao, long profissional, int nota) {
+	public ResponseEntity<Object> createAvaliacao(long profissional, int nota) {
 		UserSS user = UserService.authenticated();
 		if(user == null) {
 			throw new AuthorizationException("Acesso Negado");
 		}
 		Cliente cliente = clienteService.retrieveCliente(user.getId());
 		Profissional p = profissionalService.retrieveProfissional(profissional);
+		Avaliacao avaliacao = new Avaliacao();
 		avaliacao.setId(null);
+		avaliacao.setComentario(null);
 		avaliacao.setCliente(cliente);
 		avaliacao.setProfissional(p);
 		avaliacao.setNota(nota);
@@ -117,5 +122,10 @@ public class AvaliacaoService implements IAvaliacaoService{
 		Cliente cliente = clienteService.retrieveCliente(user.getId());
 		Profissional prof = profissionalService.retrieveProfissional(profissional);
 		return avaliacaoRepository.findByClienteAndProfissional(cliente, prof);
+	}
+	
+	public Double getAverageProfissional(long profissional) {
+		String n = df2.format(this.avaliacaoRepository.getAverageProfissional(profissional));
+		return Double.parseDouble(n.replace(',', '.'));
 	}
 }
