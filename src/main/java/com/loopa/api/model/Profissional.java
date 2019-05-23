@@ -41,6 +41,10 @@ public class Profissional extends Usuario implements Serializable{
 	private Double longitude;
 	
 	private String status;
+	
+	private String descricao;
+
+	
 
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="perfis_profissional")
@@ -50,13 +54,14 @@ public class Profissional extends Usuario implements Serializable{
 		super();
 	}
 
-	public Profissional(Long id, Servico servico, Usuario usuario, Double latitude, Double longitude) {
+	public Profissional(Long id, Servico servico, Usuario usuario, Double latitude, Double longitude, String descricao) {
 		super();
 		//this.id = id;
 		this.servico = servico;
 		//this.usuario = usuario;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.descricao = descricao;
 	}
 	
 	public Profissional(Long id, String email, String senha, String nome, String telefone, String endereco) {
@@ -84,6 +89,14 @@ public class Profissional extends Usuario implements Serializable{
 	
 	public void setServico(Servico servico) {
 		this.servico = servico;
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	//public Usuario getUsuario() {

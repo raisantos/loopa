@@ -116,7 +116,7 @@ public class RecomendacaoService implements IRecomendacaoService{
 		UserSimilarity similarity = new PearsonCorrelationSimilarity(postgreModel);
 		UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0, similarity, postgreModel);
 		UserBasedRecommender recommender = new GenericUserBasedRecommender(postgreModel, neighborhood, similarity);
-		List<RecommendedItem> recommendations = recommender.recommend(user.getId(), 10);
+		List<RecommendedItem> recommendations = recommender.recommend(user.getId(), 60);
 		System.out.println(recommendations.size());
 		for (RecommendedItem recommendation : recommendations) {
 		  System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + recommendation);
@@ -148,6 +148,7 @@ public class RecomendacaoService implements IRecomendacaoService{
 				System.out.println(Long.toString(recommendations.get(i).getItemID()));
 			}
 			
+			this.searchSourceBuilder.size(60);
 			this.searchSourceBuilder.query(QueryBuilders.functionScoreQuery(QueryBuilders.boolQuery()
 					.must(QueryBuilders.geoDistanceQuery("location").point(latitude, longitude).distance(15, DistanceUnit.KILOMETERS))
 					.must(QueryBuilders.idsQuery().addIds(ids))

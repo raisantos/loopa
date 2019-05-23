@@ -91,6 +91,7 @@ public class BuscaService implements IBuscaService{
 				.must(QueryBuilders.matchQuery("status", "ativo"))
 				.must(QueryBuilders.geoDistanceQuery("location").point(Double.parseDouble(latitude), Double.parseDouble(longitude)).distance(15, DistanceUnit.KILOMETERS)));*/
 		
+		this.searchSourceBuilder.size(60);
 		this.searchSourceBuilder.query(QueryBuilders.functionScoreQuery(QueryBuilders.boolQuery()
 				.must(QueryBuilders.geoDistanceQuery("location").point(Double.parseDouble(latitude), Double.parseDouble(longitude)).distance(15, DistanceUnit.KILOMETERS))
 				.must(QueryBuilders.matchQuery("status", "ativo"))

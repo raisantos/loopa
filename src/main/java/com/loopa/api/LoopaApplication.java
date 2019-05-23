@@ -57,15 +57,23 @@ public class LoopaApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		Servico servico = new Servico();
-		servico.setDescricao("encanador");
+		/*Servico servico = new Servico();
+		servico.setDescricao("TÉCNICO EM INFORMÁTICA");
 		servicoRepository.save(servico);
 		
 		Servico servico2 = new Servico();
-		servico2.setDescricao("mecanico");
+		servico2.setDescricao("FUNILARIA");
 		servicoRepository.save(servico2);
 		
-		Profissional p = new Profissional();
+		Servico servico3 = new Servico();
+		servico3.setDescricao("COSTUREIRA");
+		servicoRepository.save(servico3);
+		
+		Servico servico4 = new Servico();
+		servico4.setDescricao("DIARISTA");
+		servicoRepository.save(servico4);*/
+		
+		/*Profissional p = new Profissional();
 		p.setEmail("jaja@gmail");
 		p.setNome("jaja");
 		p.setSenha(pe.encode("123"));
@@ -92,9 +100,9 @@ public class LoopaApplication implements CommandLineRunner{
 			p1.setStatus("ativo");
 			p1.addPerfil(Perfil.PROFISSIONAL);
 			profissionalRepository.save(p1);
-		}
+		}*/
 		
-		Cliente c0 = new Cliente();
+		/*Cliente c0 = new Cliente();
 		c0.setId((long)1);
 		c0.setEmail("jose@gmail");
 		c0.setNome("jose");
@@ -115,10 +123,9 @@ public class LoopaApplication implements CommandLineRunner{
 		c.setLongitude(0.1546);
 		c.addPerfil(Perfil.CLIENTE);
 		clienteRepository.save(c);
+			
 		
-		
-		
-		for(long i = 3; i < 10; i++) {
+		for(long i = 3; i <= 10; i++) {
 			Cliente c1 = new Cliente();
 			c1.setId(i);
 			c1.setEmail("jailson@gmail");
@@ -129,7 +136,7 @@ public class LoopaApplication implements CommandLineRunner{
 			c1.setLongitude(0.1546);
 			c1.addPerfil(Perfil.CLIENTE);
 			clienteRepository.save(c1);
-		}
+		}*/
 		
 		/*Avaliacao a = new Avaliacao();
 		a.setCliente(c);
@@ -155,7 +162,7 @@ public class LoopaApplication implements CommandLineRunner{
 		a2.setProfissional(profissionalRepository.getOne((long) 12));
 		avaliacaoRepository.save(a2);*/
 		
-		RandomString ramdom = new RandomString(10, ThreadLocalRandom.current(), "ABCDEFGHIJKLMNOPQRSTWXYZ0123456789");
+		/*RandomString ramdom = new RandomString(10, ThreadLocalRandom.current(), "ABCDEFGHIJKLMNOPQRSTWXYZ0123456789");
 		String codigo = ramdom.nextString();
 		System.out.println("Codigo Atendimento = " + codigo);
 		
@@ -166,6 +173,6 @@ public class LoopaApplication implements CommandLineRunner{
 		at.setProfissional(p);
 		at.setLongitudeCliente(c.getLongitude());
 		at.setLatitudeCliente(c.getLatitude());
-		atendimentoRepository.save(at);
+		atendimentoRepository.save(at);*/
 	}
 }
