@@ -85,10 +85,15 @@ public class ClienteService implements IClienteService{
 
 		if (!clienteOptional.isPresent())
 			return ResponseEntity.notFound().build();
-
-		cliente.setId(id);
 		
-		clienteRepository.save(cliente);
+		Cliente c = clienteOptional.get();
+		c.setEmail(cliente.getEmail());
+		c.setEndereco(cliente.getEndereco());
+		c.setNome(cliente.getNome());
+		c.setTelefone(cliente.getTelefone());
+		c.setId(id);
+		
+		clienteRepository.save(c);
 
 		return ResponseEntity.noContent().build();
 	}

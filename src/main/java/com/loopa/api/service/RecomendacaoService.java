@@ -114,7 +114,7 @@ public class RecomendacaoService implements IRecomendacaoService{
 		}
 		//DataModel model = new FileDataModel(new File("/home/raisantos/Documents/dataset.csv"));
 		UserSimilarity similarity = new PearsonCorrelationSimilarity(postgreModel);
-		UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0, similarity, postgreModel);
+		UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.16, similarity, postgreModel);
 		UserBasedRecommender recommender = new GenericUserBasedRecommender(postgreModel, neighborhood, similarity);
 		List<RecommendedItem> recommendations = recommender.recommend(user.getId(), 60);
 		System.out.println(recommendations.size());

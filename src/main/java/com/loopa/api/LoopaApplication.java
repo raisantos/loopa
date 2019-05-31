@@ -15,6 +15,7 @@ import com.loopa.api.irepository.IClienteRepository;
 import com.loopa.api.irepository.IProfissionalRepository;
 import com.loopa.api.irepository.IServicoRepository;
 import com.loopa.api.irepository.IUsuarioRepository;
+import com.loopa.api.iservice.IRecomendacaoService;
 import com.loopa.api.model.Atendimento;
 import com.loopa.api.model.Avaliacao;
 import com.loopa.api.model.Cliente;
@@ -51,12 +52,16 @@ public class LoopaApplication implements CommandLineRunner{
 	@Autowired
 	IAtendimentoRepository atendimentoRepository;
 	
+	//@Autowired
+	//IRecomendacaoService rec;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(LoopaApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+		//rec.contextualPostFiltering(3.6548, 60.4654);
 		/*Servico servico = new Servico();
 		servico.setDescricao("TÉCNICO EM INFORMÁTICA");
 		servicoRepository.save(servico);
