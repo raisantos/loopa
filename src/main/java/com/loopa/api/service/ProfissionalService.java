@@ -83,9 +83,14 @@ public class ProfissionalService implements IProfissionalService{
 		if (!profissionalOptional.isPresent())
 			return ResponseEntity.notFound().build();
 
-		profissional.setId(id);
+		Profissional p = profissionalOptional.get();
+		p.setEmail(profissional.getEmail());
+		p.setNome(profissional.getNome());
+		p.setTelefone(profissional.getTelefone());
+		p.setEndereco(profissional.getEndereco());
+		p.setId(id);
 		
-		profissionalRepository.save(profissional);
+		profissionalRepository.save(p);
 
 		return ResponseEntity.noContent().build();
 	}
