@@ -38,6 +38,8 @@ public class Atendimento implements Serializable {
 	private double latitudeCliente;
 	private double longitudeCliente;
 	
+	private String status;
+
 	public Long getId() {
 		return id;
 	}
@@ -92,5 +94,13 @@ public class Atendimento implements Serializable {
 	
 	public void setLongitudeCliente(double longitudeCliente) {
 		this.longitudeCliente = longitudeCliente;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

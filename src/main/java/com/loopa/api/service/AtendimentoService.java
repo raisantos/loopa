@@ -72,6 +72,7 @@ public class AtendimentoService implements IAtendimentoService{
 		atendimento.setCodigo(codigo.nextString());
 		atendimento.setData(new Date());
 		atendimento.setProfissional(profissionalRepository.getOne(profissional));
+		atendimento.setStatus("ABERTO");
 		
 		Atendimento atendimentoNovo = atendimentoRepository.save(atendimento);
 
@@ -82,16 +83,23 @@ public class AtendimentoService implements IAtendimentoService{
 
 	}
 	
-	public ResponseEntity<Object> updateAtendimento(Atendimento atendimento, long id) {
+	public ResponseEntity<Object> updateAtendimento(String codigo) {
 
-		Optional<Atendimento> atendimentoOptional = atendimentoRepository.findById(id);
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		Profissional p = profissionalRepository.getOne(user.getId());
+		
+		Optional<Atendimento> atendimentoOptional = atendimentoRepository.findByProfissionalAndCodigo(p, codigo);
 
 		if (!atendimentoOptional.isPresent())
 			return ResponseEntity.notFound().build();
 
-		atendimento.setId(id);
+		Atendimento a = atendimentoOptional.get();
+		a.setStatus("FECHADO");
 		
-		atendimentoRepository.save(atendimento);
+		atendimentoRepository.save(a);
 
 		return ResponseEntity.noContent().build();
 	}

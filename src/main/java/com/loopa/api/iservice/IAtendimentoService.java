@@ -14,6 +14,6 @@ public interface IAtendimentoService {
 	public Atendimento retrieveAtendimento(@PathVariable long id);
 	public void deleteAtendimento(@PathVariable long id);
 	public ResponseEntity<Object> createAtendimento(@PathVariable long profissional);
-	public ResponseEntity<Object> updateAtendimento(@RequestBody Atendimento atendimento, @PathVariable long id);
+	public ResponseEntity<Object> updateAtendimento(@PathVariable String codigo);
 	public List<Atendimento> findByCliente();
 }

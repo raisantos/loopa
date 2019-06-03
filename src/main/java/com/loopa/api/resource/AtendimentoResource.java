@@ -48,9 +48,9 @@ public class AtendimentoResource {
 		return atendimentoService.createAtendimento(profissional);
 	}
 		
-	@PutMapping("/atendimentos/{id}")
-	public ResponseEntity<Object> updateAtendimento(@RequestBody Atendimento atendimento, @PathVariable long id) {
-		return atendimentoService.updateAtendimento(atendimento, id);
+	@PutMapping("/atendimentos/{codigo}")
+	public ResponseEntity<Object> updateAtendimento(@PathVariable String codigo) {
+		return atendimentoService.updateAtendimento(codigo);
 	}
 	
 	@GetMapping("/atendimentos")
