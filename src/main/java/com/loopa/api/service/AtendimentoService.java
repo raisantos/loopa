@@ -112,4 +112,16 @@ public class AtendimentoService implements IAtendimentoService{
 		Cliente cliente = clienteRepository.getOne(user.getId());
 		return atendimentoRepository.findByCliente(cliente);
 	}
+	
+	public Atendimento findByProfissionalAndCodigo(String codigo) {
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		Profissional p = profissionalRepository.getOne(user.getId());
+		
+		Optional<Atendimento> atendimentoOptional = atendimentoRepository.findByProfissionalAndCodigo(p, codigo);
+		Atendimento a = atendimentoOptional.get();
+		return a;
+	}
 }

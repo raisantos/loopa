@@ -32,11 +32,11 @@ public class AtendimentoResource {
 	//	return atendimentoService.retrieveAllAtendimentos();
 	//}
 
-	@GetMapping("/atendimentos/{id}")
-	public Atendimento retrieveAtendimento(@PathVariable long id) {
-		return atendimentoService.retrieveAtendimento(id);
+	//@GetMapping("/atendimentos/{id}")
+	//public Atendimento retrieveAtendimento(@PathVariable long id) {
+	//	return atendimentoService.retrieveAtendimento(id);
 
-	}
+	//}
 
 	@DeleteMapping("/atendimentos/{id}")
 	public void deleteAtendimento(@PathVariable long id) {
@@ -57,4 +57,10 @@ public class AtendimentoResource {
 	public List<Atendimento> findByCliente() {
 		return atendimentoService.findByCliente();
 	}
+	
+	@GetMapping("/atendimentos/{cod}")
+	public Atendimento findByProfissionalAndCodigo(@PathVariable String cod) {
+		return atendimentoService.findByProfissionalAndCodigo(cod);
+	}
+	
 }

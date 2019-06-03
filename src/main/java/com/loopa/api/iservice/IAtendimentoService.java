@@ -16,4 +16,5 @@ public interface IAtendimentoService {
 	public ResponseEntity<Object> createAtendimento(@PathVariable long profissional);
 	public ResponseEntity<Object> updateAtendimento(@PathVariable String codigo);
 	public List<Atendimento> findByCliente();
+	public Atendimento findByProfissionalAndCodigo(@PathVariable String codigo);
 }
