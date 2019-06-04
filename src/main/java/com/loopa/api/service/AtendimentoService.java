@@ -97,7 +97,7 @@ public class AtendimentoService implements IAtendimentoService{
 			return ResponseEntity.notFound().build();
 
 		Atendimento a = atendimentoOptional.get();
-		a.setStatus("FECHADO");
+		a.setStatus("REALIZADO");
 		
 		atendimentoRepository.save(a);
 
