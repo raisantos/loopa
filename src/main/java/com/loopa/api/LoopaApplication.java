@@ -23,6 +23,7 @@ import com.loopa.api.model.Profissional;
 import com.loopa.api.model.Servico;
 import com.loopa.api.model.Usuario;
 import com.loopa.api.model.enums.Perfil;
+import com.loopa.api.resource.AvaliacaoResource;
 import com.loopa.api.util.RandomString;
 
 import io.netty.util.internal.ThreadLocalRandom;
@@ -51,7 +52,9 @@ public class LoopaApplication implements CommandLineRunner{
 	
 	@Autowired
 	IAtendimentoRepository atendimentoRepository;
-	
+
+	@Autowired
+	AvaliacaoResource avaliacaoResource;
 	//@Autowired
 	//IRecomendacaoService rec;
 	
@@ -61,6 +64,8 @@ public class LoopaApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		System.out.println("media ========================================== ");
+		System.out.println(avaliacaoResource.getAverageProfissional(15).toString());
 		//rec.contextualPostFiltering(3.6548, 60.4654);
 		/*Servico servico = new Servico();
 		servico.setDescricao("TÉCNICO EM INFORMÁTICA");

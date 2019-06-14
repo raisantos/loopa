@@ -63,7 +63,7 @@ public class AvaliacaoResource {
 	}
 	
 	@GetMapping("/avaliacoes/media/{profissional}")
-	public Double getAverageProfissional(@PathVariable long profissional) {
-		return avaliacaoService.getAverageProfissional(profissional);
+	public String getAverageProfissional(@PathVariable long profissional) {
+		return avaliacaoService.getAverageProfissional(profissional).toString();
 	}
 }

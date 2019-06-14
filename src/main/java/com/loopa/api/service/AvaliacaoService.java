@@ -125,7 +125,8 @@ public class AvaliacaoService implements IAvaliacaoService{
 	}
 	
 	public Double getAverageProfissional(long profissional) {
-		String n = df2.format(this.avaliacaoRepository.getAverageProfissional(profissional));
-		return Double.parseDouble(n.replace(',', '.'));
+		//String n = df2.format(this.avaliacaoRepository.getAverageProfissional(profissional));
+		//return Double.parseDouble(n.replace(',', '.'));
+		return this.avaliacaoRepository.getAverageProfissional(profissional);
 	}
 }
